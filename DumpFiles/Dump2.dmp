@@ -1,0 +1,21 @@
+digraph{
+	rankdir = LR;
+	splines = ortho;
+	edge [arrowsize = "0.5"]
+	node [style = filled, shape = record]
+
+
+	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 2|Size: 0|Head: 0|Tail: 0|Free: 1|Last item: 0|Poison: -559038737"]
+
+
+	Node1 [fillcolor = "#FFAE5C", label = "NUM: 1|Value: -559038737|Next: 2|Prev: -1"]
+	Node0 -> Node1 [weight = 10, style = invis]
+	Node1 -> Node2 [color = "darkviolet"]
+
+
+	Node2 [fillcolor = "#FFAE5C", label = "NUM: 2|Value: -559038737|Next: 0|Prev: -1"]
+	Node1 -> Node2 [weight = 10, style = invis]
+	Node2 -> Node0 [color = "darkviolet"]
+
+	Node0 -> Node1 [color = "darkviolet"]
+}

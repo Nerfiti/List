@@ -7,7 +7,7 @@
 typedef int elem_t;
 
 extern const elem_t STD_POISON;
-extern const int std_list_size;
+extern const int STD_LIST_SIZE;
 
 struct list_item
 {
@@ -33,18 +33,22 @@ enum Errs
 {
     List_OK              =  0,
     WrongListPtr         = -1,
-    Non_existent_element = -2
+    Non_existent_element = -2,
+    DumpError            = -3
 };
 
-int  listCtor      (list_t *list_ptr, int capacity = std_list_size, elem_t  POISON = STD_POISON);
-int  listInsert    (list_t *list_ptr, elem_t  item, int position);
-int  listPushBack  (list_t *list_ptr, elem_t  item);
-int  listPushFront (list_t *list_ptr, elem_t  item);
-int  listDelete    (list_t *list_ptr, elem_t *item, int position);
-int  listPopBack   (list_t *list_ptr, elem_t *item);
-int  listPopFront  (list_t *list_ptr, elem_t *item);
-int  listLinearize (list_t *list_ptr);
-int  listDtor      (list_t *list_ptr);
-void listDump      (list_t  list_ptr);
+void initLog  ();
+void closeLog ();
+
+int listCtor      (list_t *list_ptr, int capacity = STD_LIST_SIZE, elem_t  POISON = STD_POISON);
+int listInsert    (list_t *list_ptr, elem_t  item, int position);
+int listPushBack  (list_t *list_ptr, elem_t  item);
+int listPushFront (list_t *list_ptr, elem_t  item);
+int listDelete    (list_t *list_ptr, int position, elem_t *item = nullptr);
+int listPopBack   (list_t *list_ptr, elem_t *item = nullptr);
+int listPopFront  (list_t *list_ptr, elem_t *item = nullptr);
+int listLinearize (list_t *list_ptr);
+int listDtor      (list_t *list_ptr);
+int listDump      (list_t *list_ptr);
 
 #endif //LIST_H

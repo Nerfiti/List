@@ -1,0 +1,52 @@
+digraph{
+	rankdir = LR;
+	splines = ortho;
+	edge [arrowsize = "0.5"]
+	node [style = filled, shape = record]
+
+
+	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 8|Size: 5|Head: -559038737|Tail: -559038737|Free: -1|Last item: 5|Poison: -559038737"]
+
+
+	Node1 [fillcolor = "#00E6E6", label = "NUM: 1|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node0 -> Node1 [weight = 10, style = invis]
+	Node1 -> Node-559038737 [color = "darkorange"]
+
+
+	Node2 [fillcolor = "#00E6E6", label = "NUM: 2|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node1 -> Node2 [weight = 10, style = invis]
+	Node2 -> Node-559038737 [color = "darkorange"]
+
+
+	Node3 [fillcolor = "#00E6E6", label = "NUM: 3|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node2 -> Node3 [weight = 10, style = invis]
+	Node3 -> Node-559038737 [color = "darkorange"]
+
+
+	Node4 [fillcolor = "#00E6E6", label = "NUM: 4|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node3 -> Node4 [weight = 10, style = invis]
+	Node4 -> Node-559038737 [color = "darkorange"]
+
+
+	Node5 [fillcolor = "#00E6E6", label = "NUM: 5|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node4 -> Node5 [weight = 10, style = invis]
+	Node5 -> Node-559038737 [color = "darkorange"]
+
+
+	Node6 [fillcolor = "#00E6E6", label = "NUM: 6|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node5 -> Node6 [weight = 10, style = invis]
+	Node6 -> Node-559038737 [color = "darkorange"]
+
+
+	Node7 [fillcolor = "#00E6E6", label = "NUM: 7|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node6 -> Node7 [weight = 10, style = invis]
+	Node7 -> Node-559038737 [color = "darkorange"]
+
+
+	Node8 [fillcolor = "#00E6E6", label = "NUM: 8|Value: -559038737|Next: -559038737|Prev: -559038737"]
+	Node7 -> Node8 [weight = 10, style = invis]
+	Node8 -> Node-559038737 [color = "darkorange"]
+
+	Node0 -> Node-559038737 [color = "darkorange"]
+	Node0 -> Node-1 [color = "darkviolet"]
+}

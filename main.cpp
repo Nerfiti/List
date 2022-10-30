@@ -2,46 +2,42 @@
 
 int main()
 {
+    initLog();
+    
     list_t lst = {};
     int last = 0;
-    int value = 0;
 
-    listDump(lst);
+    listDump(&lst);
 
     listCtor(&lst, 2);
-    listDump(lst);
+    listDump(&lst);
     
     listPushBack(&lst, 1); 
-    listDump(lst);
+    listDump(&lst);
 
     last = listPushFront(&lst, 2);
-    printf("Last = %d\n", last);
-    listDump(lst);
+    listDump(&lst);
     
     listInsert(&lst, 3, last);
-    listDump(lst);
+    listDump(&lst);
     
     listPushBack(&lst, 4);
-    listDump(lst);
+    listDump(&lst);
     
     listLinearize(&lst);
-    listDump(lst);
+    listDump(&lst);
     
     listPushBack(&lst, 5);
-    listDump(lst);
+    listDump(&lst);
     
-    listDelete(&lst, &value, last);
-    listDump(lst);
-    printf("Value = %d\n", value);
+    listPopBack(&lst);
+    listDump(&lst);
     
-    listPopBack(&lst, &value);
-    listDump(lst);
-    printf("Value = %d\n", value);
-    
-    listPopFront(&lst, &value);  
-    listDump(lst);
-    printf("Value = %d\n", value);
-    
+    listPopFront(&lst);  
+    listDump(&lst);
+   
     listDtor(&lst);
-    listDump(lst);
+    listDump(&lst);
+
+    closeLog();
 }
