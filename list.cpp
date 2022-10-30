@@ -55,9 +55,13 @@ static void listResizeDOWN (list_t *list_ptr);
 static void setLastItem    (int *last_item, int cur_item);
 static bool isFree         (list_item item);
 
+static int  dumpError      (const char *optional_message = "");
+
 static bool creatGraphDump (const char *svg_dump_path, const char *dump_path, list_t *list_ptr);
 static void genNodeCode    (list_item item, int num, FILE *dump_file);
 static void genEdgeCode    (list_item item, int num, FILE *dump_file);
+static void addLine        ();
+static void getPath        (char *dump_path, char *svg_dump_path);
 
 //----------------------------------------------------------------------------
 
@@ -256,36 +260,34 @@ int listDtor(list_t *list_ptr)
 
 //----------------------------------------------------------------------------
 
-#define ERROR_DUMP /*For function listDump(list_t)*/            \
-    fprintf(logfile, "<p>Error creating dump!</p>\n<hr>\n");    \
-    Dump_counter++;                                             \
-    return DumpError                                            \
-
 int listDump(list_t *list_ptr)
 {
-    fprintf(logfile, "<hr>\n");
-    fprintf(logfile, "\n\n<p>%s</p>\n", Last_function);
-    CHECK_LIST_PTR(list_ptr);
+    addLine();
 
+    fprintf(logfile, "<p>%s</p>\n", Last_function);
+    
+    CHECK_LIST_PTR(list_ptr);
     if (list_ptr->buf == nullptr || IsBadReadPtr(list_ptr->buf, sizeof(list_t)))
     {
-        fprintf(logfile, "<p>Wrong buffer pointer!</p>\n");
-        ERROR_DUMP;
+        return dumpError("<p>Wrong buffer pointer!</p>");
     }
 
     char dump_path    [MAX_PATH_LEN] = "";
     char svg_dump_path[MAX_PATH_LEN] = "";
 
-    sprintf(dump_path,     DUMP_PATH,     Dump_counter);
-    sprintf(svg_dump_path, SVG_DUMP_PATH, Dump_counter);
+    getPath(dump_path, svg_dump_path);
 
     #ifdef GRAPH_DUMP
+
         if (!creatGraphDump(svg_dump_path, dump_path, list_ptr))
         {
-            ERROR_DUMP;
+            return dumpError();
         }
+
         fprintf(logfile, "\n<img src = .%s>\n", svg_dump_path);
+
     #else
+
         fprintf(logfile, "<pre><p>");
         fprintf(logfile, "----------------------------------------------------\n");
         for (int i = 0; i <= list_ptr->capacity; ++i)
@@ -296,6 +298,7 @@ int listDump(list_t *list_ptr)
                              i, item.data, item.next, item.prev);
         }
         fprintf(logfile, "</p></pre>");
+
     #endif //GRAPH_DUMP
 
     fprintf(logfile, "<hr>\n");
@@ -303,8 +306,6 @@ int listDump(list_t *list_ptr)
     Dump_counter++;
     return List_OK;
 }
-
-#undef ERROR_DUMP
 
 //----------------------------------------------------------------------------
 
@@ -381,6 +382,13 @@ static bool isFree(list_item item)
     return item.prev == FREE_INDICATOR;
 }
 
+static int dumpError(const char *optional_message)
+{
+    fprintf(logfile, "%s <p>Error creating dump!</p>\n<hr>\n", optional_message);
+    Dump_counter++;
+    return DumpError;
+}
+
 static bool creatGraphDump(const char *svg_dump_path, const char *dump_path, list_t *list_ptr)
 {
     FILE *dump_file = fopen(dump_path, "w");
@@ -441,6 +449,18 @@ static void genEdgeCode(list_item item, int num, FILE *dump_file)
                         isFree(item) ? FREE_EDGE_COLOR : EDGE_COLOR);
 }
 
+static void addLine()
+{
+    fprintf(logfile, "<hr>\n");
+}
+
+static void getPath(char *dump_path, char *svg_dump_path)
+{
+    sprintf(dump_path,     DUMP_PATH,     Dump_counter);
+    sprintf(svg_dump_path, SVG_DUMP_PATH, Dump_counter);
+}
+
 //----------------------------------------------------------------------------
 
 #undef CHECK_LIST_PTR
+#undef CHECK_ELEMENT
