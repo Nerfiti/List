@@ -5,25 +5,25 @@ digraph{
 	node [style = filled, shape = record]
 
 
-	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 4|Size: 4|Head: 1|Tail: 4|Free: 5|Last item: 4|Poison: -559038737"]
+	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 4|Size: 4|Head: 1|Tail: 4|Free: 5|Is sorted: true (1)|Poison: -559038737"]
 
 
-	Node1 [fillcolor = "#00E6E6", label = "NUM: 1|Value: 2|Next: 2|Prev: 0"]
+	Node1 [fillcolor = "#40C0C0", label = "NUM: 1|Value: 2|Next: 2|Prev: 0"]
 	Node0 -> Node1 [weight = 10, style = invis]
 	Node1 -> Node2 [color = "darkorange"]
 
 
-	Node2 [fillcolor = "#00E6E6", label = "NUM: 2|Value: 3|Next: 3|Prev: 1"]
+	Node2 [fillcolor = "#40C0C0", label = "NUM: 2|Value: 3|Next: 3|Prev: 1"]
 	Node1 -> Node2 [weight = 10, style = invis]
 	Node2 -> Node3 [color = "darkorange"]
 
 
-	Node3 [fillcolor = "#00E6E6", label = "NUM: 3|Value: 1|Next: 4|Prev: 2"]
+	Node3 [fillcolor = "#40C0C0", label = "NUM: 3|Value: 1|Next: 4|Prev: 2"]
 	Node2 -> Node3 [weight = 10, style = invis]
 	Node3 -> Node4 [color = "darkorange"]
 
 
-	Node4 [fillcolor = "#00E6E6", label = "NUM: 4|Value: 4|Next: 0|Prev: 3"]
+	Node4 [fillcolor = "#40C0C0", label = "NUM: 4|Value: 4|Next: 0|Prev: 3"]
 	Node3 -> Node4 [weight = 10, style = invis]
 	Node4 -> Node0 [color = "darkorange"]
 

@@ -2,7 +2,6 @@
 #define LIST_H
 
 #include <cstdio>
-#include <windows.h>
 
 typedef int elem_t;
 
@@ -21,8 +20,8 @@ struct list_t
     int size          = -1;
     int capacity      = -1;
     int init_capacity = -1; 
-    int last_item     = -1;
     int free          = -1;
+    bool isSorted     = false;
 
     list_item *buf = nullptr;
 
@@ -48,7 +47,8 @@ int listDelete    (list_t *list_ptr, int position, elem_t *item = nullptr);
 int listPopBack   (list_t *list_ptr, elem_t *item = nullptr);
 int listPopFront  (list_t *list_ptr, elem_t *item = nullptr);
 int listLinearize (list_t *list_ptr);
+int getPosition   (list_t *list_ptr, int logical_pos);
 int listDtor      (list_t *list_ptr);
-int listDump      (list_t *list_ptr);
+int listDump      (const list_t *const list_ptr);
 
 #endif //LIST_H

@@ -5,7 +5,7 @@ digraph{
 	node [style = filled, shape = record]
 
 
-	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 2|Size: 0|Head: 0|Tail: 0|Free: 1|Last item: 0|Poison: -559038737"]
+	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 2|Size: 0|Head: 0|Tail: 0|Free: 1|Is sorted: true (1)|Poison: -559038737"]
 
 
 	Node1 [fillcolor = "#FFAE5C", label = "NUM: 1|Value: -559038737|Next: 2|Prev: -1"]

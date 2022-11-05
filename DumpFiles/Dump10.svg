@@ -26,7 +26,7 @@
 <polyline fill="none" stroke="black" points="0,-69.5 158,-69.5"/>
 <text text-anchor="middle" x="79" y="-54.3" font-family="Times New Roman,serif" font-size="14.00">Free: 1</text>
 <polyline fill="none" stroke="black" points="0,-46.5 158,-46.5"/>
-<text text-anchor="middle" x="79" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">Last item: 5</text>
+<text text-anchor="middle" x="79" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">Is sorted: true (1)</text>
 <polyline fill="none" stroke="black" points="0,-23.5 158,-23.5"/>
 <text text-anchor="middle" x="79" y="-8.3" font-family="Times New Roman,serif" font-size="14.00">Poison: &#45;559038737</text>
 </g>
@@ -52,7 +52,7 @@
 <!-- Node2 -->
 <g id="node4" class="node">
 <title>Node2</title>
-<polygon fill="#00e6e6" stroke="black" points="350,-58 350,-150 412,-150 412,-58 350,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="350,-58 350,-150 412,-150 412,-58 350,-58"/>
 <text text-anchor="middle" x="381" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 2</text>
 <polyline fill="none" stroke="black" points="350,-127 412,-127"/>
 <text text-anchor="middle" x="381" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 3</text>
@@ -108,7 +108,7 @@
 <!-- Node3 -->
 <g id="node5" class="node">
 <title>Node3</title>
-<polygon fill="#00e6e6" stroke="black" points="448,-58 448,-150 510,-150 510,-58 448,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="448,-58 448,-150 510,-150 510,-58 448,-58"/>
 <text text-anchor="middle" x="479" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 3</text>
 <polyline fill="none" stroke="black" points="448,-127 510,-127"/>
 <text text-anchor="middle" x="479" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 1</text>
@@ -127,7 +127,7 @@
 <!-- Node4 -->
 <g id="node6" class="node">
 <title>Node4</title>
-<polygon fill="#00e6e6" stroke="black" points="546,-58 546,-150 608,-150 608,-58 546,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="546,-58 546,-150 608,-150 608,-58 546,-58"/>
 <text text-anchor="middle" x="577" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 4</text>
 <polyline fill="none" stroke="black" points="546,-127 608,-127"/>
 <text text-anchor="middle" x="577" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 4</text>

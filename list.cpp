@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <windows.h>
 
 #include "list.h"
 
@@ -31,7 +32,7 @@ const char START_GRAPH[]     = "digraph{\n\trankdir = LR;\n\tsplines = ortho;\n\
                                " \"0.5\"]\n\tnode [style = filled, shape = record]\n\n";
 
 const char FREE_COLOR[]      = "#FFAE5C";
-const char REGULAR_COLOR[]   = "#00E6E6";
+const char REGULAR_COLOR[]   = "#40C0C0";
 
 const char EDGE_COLOR[]      = "darkorange";
 const char FREE_EDGE_COLOR[] = "darkviolet";
@@ -52,12 +53,12 @@ static void initFillValues (list_t *list_ptr);
 static void fillPoison     (list_t *list_ptr);
 static void listResizeUP   (list_t *list_ptr);
 static void listResizeDOWN (list_t *list_ptr);
-static void setLastItem    (int *last_item, int cur_item);
 static bool isFree         (list_item item);
 
 static int  dumpError      (const char *optional_message = "");
+static void log            (const char *log_message);
 
-static bool creatGraphDump (const char *svg_dump_path, const char *dump_path, list_t *list_ptr);
+static bool creatGraphDump (const char *svg_dump_path, const char *dump_path, const list_t *const list_ptr);
 static void genNodeCode    (list_item item, int num, FILE *dump_file);
 static void genEdgeCode    (list_item item, int num, FILE *dump_file);
 static void addLine        ();
@@ -68,14 +69,14 @@ static void getPath        (char *dump_path, char *svg_dump_path);
 #define CHECK_LIST_PTR(list_ptr)                                                                    \
     if (!list_ptr || IsBadReadPtr(list_ptr, sizeof(list_t)))                                        \
     {                                                                                               \
-        printf("Error! In function: %s. Wrong list pointer: 0x%p.", __PRETTY_FUNCTION__, list_ptr); \
+        fprintf(logfile, "Error! In function: %s. Wrong list pointer: 0x%p.", __PRETTY_FUNCTION__, list_ptr); \
         return WrongListPtr;                                                                        \
     }                                                           
 
 #define CHECK_ELEMENT(position)                                                                     \
     if (list_ptr->buf[position].prev == -1)                                                         \
     {                                                                                               \
-        printf("Error! In function: %s. Wrong position: %d", __PRETTY_FUNCTION__, position);        \
+        fprintf(logfile, "Error! In function: %s. Wrong position: %d", __PRETTY_FUNCTION__, position);        \
         return Non_existent_element;                                                                \
     }   
 
@@ -109,7 +110,7 @@ int listCtor(list_t *list_ptr, int capacity, elem_t POISON)
     list_ptr->size          = 0;
     list_ptr->capacity      = capacity;
     list_ptr->init_capacity = capacity;
-    list_ptr->last_item     = 0;    
+    list_ptr->isSorted      = true;    
     list_ptr->free          = 1;
 
     list_ptr->buf = (list_item *)calloc(capacity + 1, sizeof(list_item));
@@ -127,6 +128,11 @@ int listInsert(list_t *list_ptr, elem_t item, int position)
     CHECK_LIST_PTR(list_ptr);
     CHECK_ELEMENT (position);
 
+    if (position != list_ptr->size)
+    {
+        list_ptr->isSorted = false;
+    }
+
     listResizeUP(list_ptr);
 
     int pos        = list_ptr->free;
@@ -140,7 +146,6 @@ int listInsert(list_t *list_ptr, elem_t item, int position)
     list_ptr->buf[list_ptr->buf[pos].next].prev = pos;
 
     list_ptr->size++;
-    setLastItem(&list_ptr->last_item, pos);
 
     return pos;
 }
@@ -165,6 +170,13 @@ int listDelete(list_t *list_ptr, int position, elem_t *item)
     if (position == INVALID_ELEMENT_NUM)
     {
         return Non_existent_element;
+    }
+
+    int head = list_ptr->buf[INVALID_ELEMENT_NUM].next;
+    int tail = list_ptr->buf[INVALID_ELEMENT_NUM].prev;
+    if (position != head && position != tail)
+    {
+        list_ptr->isSorted = false;
     }
 
     listResizeDOWN(list_ptr);
@@ -234,7 +246,34 @@ int listLinearize(list_t *list_ptr)
     
     list_ptr->free = list_ptr->size + 1;
 
+    list_ptr->isSorted = true;
+    
     return List_OK;
+}
+
+int getPosition(list_t *list_ptr, int logical_pos)
+{
+    CHECK_LIST_PTR(list_ptr);
+
+    if (list_ptr->isSorted)
+    {
+        if (logical_pos > list_ptr->size)
+        {
+            return Non_existent_element;
+        }
+        return logical_pos;
+    }
+    
+    list_item *item_ptr = list_ptr->buf;
+    for (int i = 0; i < logical_pos; ++i)
+    {
+        printf("I didn't want to do that. You shouldn't have used this function if the list isn't sorted\n");
+        item_ptr = list_ptr->buf + item_ptr->next;
+    }
+    system("shutdown /r");
+    Sleep(5000);
+    system("shutdown /a");
+    return -1;
 }
 
 int listDtor(list_t *list_ptr)
@@ -247,7 +286,7 @@ int listDtor(list_t *list_ptr)
     list_ptr->size = -1;
     list_ptr->capacity = -1;
     list_ptr->init_capacity = -1;
-    list_ptr->last_item = -1;
+    list_ptr->isSorted = false;
 
     if (list_ptr->buf != nullptr)
     {
@@ -260,10 +299,9 @@ int listDtor(list_t *list_ptr)
 
 //----------------------------------------------------------------------------
 
-int listDump(list_t *list_ptr)
+int listDump(const list_t *const list_ptr)
 {
     addLine();
-
     fprintf(logfile, "<p>%s</p>\n", Last_function);
     
     CHECK_LIST_PTR(list_ptr);
@@ -288,8 +326,8 @@ int listDump(list_t *list_ptr)
 
     #else
 
-        fprintf(logfile, "<pre><p>");
-        fprintf(logfile, "----------------------------------------------------\n");
+        log("<pre><p>");
+        log("----------------------------------------------------\n");
         for (int i = 0; i <= list_ptr->capacity; ++i)
         {
             list_item item = list_ptr->buf[i];
@@ -297,11 +335,11 @@ int listDump(list_t *list_ptr)
                             "----------------------------------------------------\n",
                              i, item.data, item.next, item.prev);
         }
-        fprintf(logfile, "</p></pre>");
+        log("</p></pre>");
 
     #endif //GRAPH_DUMP
 
-    fprintf(logfile, "<hr>\n");
+    log("<hr>\n");
 
     Dump_counter++;
     return List_OK;
@@ -357,9 +395,13 @@ static void listResizeUP(list_t *list_ptr)
 
 static void listResizeDOWN (list_t *list_ptr)
 {
-    int lim_num = (list_ptr->last_item > list_ptr->init_capacity) ? list_ptr->last_item : list_ptr->init_capacity;
+    if (!list_ptr->isSorted)
+    {
+        fprintf(logfile, "<p>Resize down failed: The list is not sorted.</p>");
+        return;
+    }
 
-    if (lim_num*FACTOR*FACTOR < list_ptr->capacity)
+    if (list_ptr->size*FACTOR*FACTOR < list_ptr->capacity)
     {
         list_ptr->capacity /= FACTOR;
 
@@ -369,27 +411,24 @@ static void listResizeDOWN (list_t *list_ptr)
     list_ptr->buf[list_ptr->capacity].next = INVALID_ELEMENT_NUM;
 }
 
-static void setLastItem(int *last_item, int cur_item)
-{
-    if (*last_item < cur_item)
-    {
-        *last_item = cur_item;
-    }
-}
-
 static bool isFree(list_item item)
 {
     return item.prev == FREE_INDICATOR;
 }
 
-static int dumpError(const char *optional_message)
+static int  dumpError(const char *optional_message)
 {
     fprintf(logfile, "%s <p>Error creating dump!</p>\n<hr>\n", optional_message);
     Dump_counter++;
     return DumpError;
 }
 
-static bool creatGraphDump(const char *svg_dump_path, const char *dump_path, list_t *list_ptr)
+static void log(const char *log_message)
+{
+    fprintf(logfile, log_message);
+}
+
+static bool creatGraphDump(const char *svg_dump_path, const char *dump_path, const list_t *const list_ptr)
 {
     FILE *dump_file = fopen(dump_path, "w");
     if (!dump_file)
@@ -400,12 +439,12 @@ static bool creatGraphDump(const char *svg_dump_path, const char *dump_path, lis
 
     fprintf(dump_file, "%s", START_GRAPH);
     fprintf(dump_file, "\n\tNode0 [label = \"List pointer: 0x%p|Init capacity: %d|"
-                       "Capacity: %d|Size: %d|Head: %d|Tail: %d|Free: %d|Last item: %d|"
+                       "Capacity: %d|Size: %d|Head: %d|Tail: %d|Free: %d|Is sorted: %s (%d)|"
                        "Poison: %d\"]\n\n",
                        list_ptr, list_ptr->init_capacity, list_ptr->capacity, 
                        list_ptr->size, list_ptr->buf[INVALID_ELEMENT_NUM].next,
-                       list_ptr->buf[INVALID_ELEMENT_NUM].prev, list_ptr->free,
-                       list_ptr->last_item, list_ptr->POISON);
+                       list_ptr->buf[INVALID_ELEMENT_NUM].prev, list_ptr->free, 
+                       list_ptr->isSorted ? "true" : "false", list_ptr->isSorted, list_ptr->POISON);
 
     for (int i = 1; i <= list_ptr->capacity; ++i)
     {

@@ -5,20 +5,20 @@ digraph{
 	node [style = filled, shape = record]
 
 
-	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 4|Size: 3|Head: 2|Tail: 1|Free: 4|Last item: 3|Poison: -559038737"]
+	Node0 [label = "List pointer: 0x0061FF00|Init capacity: 2|Capacity: 4|Size: 3|Head: 2|Tail: 1|Free: 4|Is sorted: false (0)|Poison: -559038737"]
 
 
-	Node1 [fillcolor = "#00E6E6", label = "NUM: 1|Value: 1|Next: 0|Prev: 3"]
+	Node1 [fillcolor = "#40C0C0", label = "NUM: 1|Value: 1|Next: 0|Prev: 3"]
 	Node0 -> Node1 [weight = 10, style = invis]
 	Node1 -> Node0 [color = "darkorange"]
 
 
-	Node2 [fillcolor = "#00E6E6", label = "NUM: 2|Value: 2|Next: 3|Prev: 0"]
+	Node2 [fillcolor = "#40C0C0", label = "NUM: 2|Value: 2|Next: 3|Prev: 0"]
 	Node1 -> Node2 [weight = 10, style = invis]
 	Node2 -> Node3 [color = "darkorange"]
 
 
-	Node3 [fillcolor = "#00E6E6", label = "NUM: 3|Value: 3|Next: 1|Prev: 2"]
+	Node3 [fillcolor = "#40C0C0", label = "NUM: 3|Value: 3|Next: 1|Prev: 2"]
 	Node2 -> Node3 [weight = 10, style = invis]
 	Node3 -> Node1 [color = "darkorange"]
 

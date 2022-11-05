@@ -26,14 +26,14 @@
 <polyline fill="none" stroke="black" points="0,-69.5 158,-69.5"/>
 <text text-anchor="middle" x="79" y="-54.3" font-family="Times New Roman,serif" font-size="14.00">Free: 6</text>
 <polyline fill="none" stroke="black" points="0,-46.5 158,-46.5"/>
-<text text-anchor="middle" x="79" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">Last item: 5</text>
+<text text-anchor="middle" x="79" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">Is sorted: true (1)</text>
 <polyline fill="none" stroke="black" points="0,-23.5 158,-23.5"/>
 <text text-anchor="middle" x="79" y="-8.3" font-family="Times New Roman,serif" font-size="14.00">Poison: &#45;559038737</text>
 </g>
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<polygon fill="#00e6e6" stroke="black" points="194,-58 194,-150 256,-150 256,-58 194,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="194,-58 194,-150 256,-150 256,-58 194,-58"/>
 <text text-anchor="middle" x="225" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 1</text>
 <polyline fill="none" stroke="black" points="194,-127 256,-127"/>
 <text text-anchor="middle" x="225" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 2</text>
@@ -70,7 +70,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<polygon fill="#00e6e6" stroke="black" points="292,-58 292,-150 354,-150 354,-58 292,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="292,-58 292,-150 354,-150 354,-58 292,-58"/>
 <text text-anchor="middle" x="323" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 2</text>
 <polyline fill="none" stroke="black" points="292,-127 354,-127"/>
 <text text-anchor="middle" x="323" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 3</text>
@@ -89,7 +89,7 @@
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<polygon fill="#00e6e6" stroke="black" points="390,-58 390,-150 452,-150 452,-58 390,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="390,-58 390,-150 452,-150 452,-58 390,-58"/>
 <text text-anchor="middle" x="421" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 3</text>
 <polyline fill="none" stroke="black" points="390,-127 452,-127"/>
 <text text-anchor="middle" x="421" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 1</text>
@@ -108,7 +108,7 @@
 <!-- Node4 -->
 <g id="node5" class="node">
 <title>Node4</title>
-<polygon fill="#00e6e6" stroke="black" points="488,-58 488,-150 550,-150 550,-58 488,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="488,-58 488,-150 550,-150 550,-58 488,-58"/>
 <text text-anchor="middle" x="519" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 4</text>
 <polyline fill="none" stroke="black" points="488,-127 550,-127"/>
 <text text-anchor="middle" x="519" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 4</text>
@@ -127,7 +127,7 @@
 <!-- Node5 -->
 <g id="node6" class="node">
 <title>Node5</title>
-<polygon fill="#00e6e6" stroke="black" points="586,-58 586,-150 648,-150 648,-58 586,-58"/>
+<polygon fill="#40c0c0" stroke="black" points="586,-58 586,-150 648,-150 648,-58 586,-58"/>
 <text text-anchor="middle" x="617" y="-134.8" font-family="Times New Roman,serif" font-size="14.00">NUM: 5</text>
 <polyline fill="none" stroke="black" points="586,-127 648,-127"/>
 <text text-anchor="middle" x="617" y="-111.8" font-family="Times New Roman,serif" font-size="14.00">Value: 5</text>
